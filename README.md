@@ -4,7 +4,7 @@
 
 Welcome! This project helps you predict house prices using real data and a smart machine learning model. You can use it to explore the data, make predictions for a single house, or upload a list of houses and get prices for all of them at once—all through a simple web app.
 
-#### Live Demo: [jobfit-resume-analyzer](https://jobfit-resume-analyzer.streamlit.app/)
+#### Live Demo: [price-my-home](https://price-my-home.streamlit.app/)
 ---
 
 ## What’s Inside
