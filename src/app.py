@@ -44,41 +44,41 @@ if section == 'Predict':
         st.error(f"Data loading error: {train_err}")
     else:
         st.markdown('### Enter House Features')
-feature_inputs = {}
-feature_inputs['OverallQual'] = st.slider('Overall Quality (1-10)', 1, 10, 5)
-feature_inputs['GrLivArea'] = st.number_input('Above Ground Living Area (sq ft)', min_value=300, max_value=6000, value=1500)
-feature_inputs['GarageCars'] = st.slider('Garage Cars', 0, 4, 2)
-feature_inputs['TotalBsmtSF'] = st.number_input('Total Basement SF', min_value=0, max_value=3000, value=800)
-feature_inputs['1stFlrSF'] = st.number_input('1st Floor SF', min_value=0, max_value=3000, value=900)
-feature_inputs['2ndFlrSF'] = st.number_input('2nd Floor SF', min_value=0, max_value=3000, value=500)
-feature_inputs['YearBuilt'] = st.number_input('Year Built', min_value=1870, max_value=2023, value=2000)
-feature_inputs['YearRemodAdd'] = st.number_input('Year Remodeled', min_value=1870, max_value=2023, value=2010)
-feature_inputs['YrSold'] = st.number_input('Year Sold', min_value=2006, max_value=2010, value=2010)
-mszoning_opts = get_cat_options('MSZoning')
-feature_inputs['MSZoning'] = st.selectbox('MS Zoning', mszoning_opts) if mszoning_opts else 'RL'
-neighborhood_opts = get_cat_options('Neighborhood')
-feature_inputs['Neighborhood'] = st.selectbox('Neighborhood', neighborhood_opts) if neighborhood_opts else 'NAmes'
-housestyle_opts = get_cat_options('HouseStyle')
-feature_inputs['HouseStyle'] = st.selectbox('House Style', housestyle_opts) if housestyle_opts else '1Story'
-feature_inputs['TotalSF'] = feature_inputs['TotalBsmtSF'] + feature_inputs['1stFlrSF'] + feature_inputs['2ndFlrSF']
-feature_inputs['HouseAge'] = feature_inputs['YrSold'] - feature_inputs['YearBuilt']
-feature_inputs['RemodAge'] = feature_inputs['YrSold'] - feature_inputs['YearRemodAdd']
-if feature_inputs['YearBuilt'] > feature_inputs['YrSold']:
-    st.warning('Year Built cannot be after Year Sold!')
-if feature_inputs['YearRemodAdd'] > feature_inputs['YrSold']:
-    st.warning('Year Remodeled cannot be after Year Sold!')
-input_df = pd.DataFrame([feature_inputs])
-for col_prefix in ['MSZoning', 'Neighborhood', 'HouseStyle']:
-    col = feature_inputs[col_prefix]
-    col_name = f'{col_prefix}_{col}'
-    input_df[col_name] = 1
-for col in model_columns:
-    if col not in input_df.columns:
-        input_df[col] = 0
-input_df = input_df[model_columns]
-if st.button('Predict Sale Price'):
+        feature_inputs = {}
+        feature_inputs['OverallQual'] = st.slider('Overall Quality (1-10)', 1, 10, 5)
+        feature_inputs['GrLivArea'] = st.number_input('Above Ground Living Area (sq ft)', min_value=300, max_value=6000, value=1500)
+        feature_inputs['GarageCars'] = st.slider('Garage Cars', 0, 4, 2)
+        feature_inputs['TotalBsmtSF'] = st.number_input('Total Basement SF', min_value=0, max_value=3000, value=800)
+        feature_inputs['1stFlrSF'] = st.number_input('1st Floor SF', min_value=0, max_value=3000, value=900)
+        feature_inputs['2ndFlrSF'] = st.number_input('2nd Floor SF', min_value=0, max_value=3000, value=500)
+        feature_inputs['YearBuilt'] = st.number_input('Year Built', min_value=1870, max_value=2023, value=2000)
+        feature_inputs['YearRemodAdd'] = st.number_input('Year Remodeled', min_value=1870, max_value=2023, value=2010)
+        feature_inputs['YrSold'] = st.number_input('Year Sold', min_value=2006, max_value=2010, value=2010)
+        mszoning_opts = get_cat_options('MSZoning')
+        feature_inputs['MSZoning'] = st.selectbox('MS Zoning', mszoning_opts) if mszoning_opts else 'RL'
+        neighborhood_opts = get_cat_options('Neighborhood')
+        feature_inputs['Neighborhood'] = st.selectbox('Neighborhood', neighborhood_opts) if neighborhood_opts else 'NAmes'
+        housestyle_opts = get_cat_options('HouseStyle')
+        feature_inputs['HouseStyle'] = st.selectbox('House Style', housestyle_opts) if housestyle_opts else '1Story'
+        feature_inputs['TotalSF'] = feature_inputs['TotalBsmtSF'] + feature_inputs['1stFlrSF'] + feature_inputs['2ndFlrSF']
+        feature_inputs['HouseAge'] = feature_inputs['YrSold'] - feature_inputs['YearBuilt']
+        feature_inputs['RemodAge'] = feature_inputs['YrSold'] - feature_inputs['YearRemodAdd']
+        if feature_inputs['YearBuilt'] > feature_inputs['YrSold']:
+            st.warning('Year Built cannot be after Year Sold!')
+        if feature_inputs['YearRemodAdd'] > feature_inputs['YrSold']:
+            st.warning('Year Remodeled cannot be after Year Sold!')
+        input_df = pd.DataFrame([feature_inputs])
+        for col_prefix in ['MSZoning', 'Neighborhood', 'HouseStyle']:
+            col = feature_inputs[col_prefix]
+            col_name = f'{col_prefix}_{col}'
+            input_df[col_name] = 1
+        for col in model_columns:
+            if col not in input_df.columns:
+                input_df[col] = 0
+        input_df = input_df[model_columns]
+        if st.button('Predict Sale Price'):
             try:
-    prediction = model.predict(input_df)[0]
+                prediction = model.predict(input_df)[0]
                 # --- 1. Summary Card ---
                 st.markdown('''
                 <div style="display: flex; gap: 2rem; margin-bottom: 1rem; align-items: center;">
