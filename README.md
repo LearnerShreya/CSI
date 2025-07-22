@@ -11,6 +11,7 @@ Welcome! This project helps you predict house prices using real data and a smart
 
 **Folders and Files:**
 
+```
 project-root/
 │
 ├── data/                         # All the data files: original, cleaned, and processed for modeling
@@ -37,6 +38,7 @@ project-root/
 ├── requirements.txt              # List of required Python libraries
 ├── README.md                     # Project overview and usage instructions
 └── approach.md                   # Detailed explanation of methods and approach
+```
 
 ---
 
