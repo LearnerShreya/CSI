@@ -57,15 +57,16 @@ section = st.sidebar.radio(
 st.sidebar.markdown('<hr style="margin: 0.3rem 0 0.2rem 0;">', unsafe_allow_html=True)
 st.sidebar.markdown(
     '''
-    <div style="text-align:center; font-size:0.95rem; margin-top:1.5rem;">
-        Made with <span style="color:#e25555;">❤️</span> by <a href="https://www.linkedin.com/in/shreya-singh-561a591a5/" target="_blank" style="color:#1a237e; text-decoration:underline;">Shreya Singh</a>
-    </div>
+    <hr style="border: none; border-top: 1px solid #bbb; margin: 1.2rem 0 0.5rem 0;" />
+<div style="text-align:left; font-size:0.95rem; color:#e0e0e0; margin-bottom:0.5rem;">
+Built with ❤️ by <a href="https://www.linkedin.com/in/shreya-singh-561a591a5/" target="_blank" style="color:#90caf9; text-decoration:none;">Shreya Singh</a>.
+</div>
     ''', unsafe_allow_html=True
 )
 
 footer_html = '''<hr style="border: none; border-top: 1px solid #bbb; margin: 1.2rem 0 0.5rem 0;" />
 <div style="text-align:left; font-size:0.95rem; color:#e0e0e0; margin-bottom:0.5rem;">
-Built with ❤️ by <a href="https://www.linkedin.com/in/shreya-singh-561a591a5/" target="_blank" style="color:#90caf9; text-decoration:underline;">Shreya Singh</a> for data science and real estate enthusiasts.
+Built with ❤️ by <a href="https://www.linkedin.com/in/shreya-singh-561a591a5/" target="_blank" style="color:#90caf9; text-decoration:none;">Shreya Singh</a> for data science and real estate enthusiasts.
 </div>'''
 
 def get_cat_options(col_prefix):
