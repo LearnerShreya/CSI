@@ -5,7 +5,7 @@ import joblib
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# --- Caching and Model Loading ---
+# --- Caching and Model Loading ----
 @st.cache_data
 def load_model():
     try:
@@ -27,8 +27,44 @@ model, model_columns, model_err = load_model()
 train_df, train_err = load_train_data()
 
 # --- Sidebar Navigation ---
-st.sidebar.title('🏠 House Price Prediction')
-section = st.sidebar.radio('Navigation', ['Predict', 'Batch Predict', 'EDA', 'About'])
+st.sidebar.markdown(
+    '''
+    <style>
+    section[data-testid="stSidebar"] > div:first-child {padding-top: 0.1rem !important;}
+    .sidebar-nav-label {font-size: 1.18rem !important; font-weight: 600; margin-bottom: 0 !important; color: #fff; letter-spacing: 0.5px;}
+    .sidebar-radio .stRadio > div {font-size: 1.13rem !important;}
+    .sidebar-radio .stRadio div[role="radiogroup"] > label {margin-bottom: 0.18rem !important;}
+    .sidebar-radio .stRadio div[role="radiogroup"] {margin-top: 0 !important; padding-top: 0 !important;}
+    .sidebar-tagline {margin-bottom: 1.2rem;}
+    </style>
+    <div style="background: #23272b; color: #fff; border-radius: 12px; padding: 0.3rem 0.5rem 0.5rem 0.5rem; margin-bottom: 0.5rem; box-shadow: 0 2px 8px #23272b;">
+        <div style="text-align: center;">
+            <span style="font-size:2.8rem;">🏠</span>
+            <div style="font-size:1.5rem; font-weight: bold; margin-top: 0.2rem; color: #fff;">House Price Prediction</div>
+            <div class="sidebar-tagline" style="font-size:1rem; color: #b0b8c1; margin-top: 0.2rem;">Smart, Fast & Easy</div>
+        </div>
+    </div>
+    ''', unsafe_allow_html=True
+)
+st.sidebar.markdown('<div class="sidebar-nav-label">Navigation</div>', unsafe_allow_html=True)
+section = st.sidebar.radio(
+    '',
+    ['🔮 Predict', '📦 Batch Predict', '📊 EDA', 'ℹ️ About'],
+    key='sidebar-radio',
+)
+st.sidebar.markdown('<hr style="margin: 0.3rem 0 0.2rem 0;">', unsafe_allow_html=True)
+st.sidebar.markdown(
+    '''
+    <div style="text-align:center; font-size:0.95rem; margin-top:1.5rem;">
+        Made with <span style="color:#e25555;">❤️</span> by <a href="https://www.linkedin.com/in/shreya-singh-561a591a5/" target="_blank" style="color:#1a237e; text-decoration:underline;">Shreya Singh</a>
+    </div>
+    ''', unsafe_allow_html=True
+)
+
+footer_html = '''<hr style="border: none; border-top: 1px solid #bbb; margin: 1.2rem 0 0.5rem 0;" />
+<div style="text-align:left; font-size:0.95rem; color:#e0e0e0; margin-bottom:0.5rem;">
+Built with ❤️ by <a href="https://www.linkedin.com/in/shreya-singh-561a591a5/" target="_blank" style="color:#90caf9; text-decoration:underline;">Shreya Singh</a> for data science and real estate enthusiasts.
+</div>'''
 
 def get_cat_options(col_prefix):
     if train_df.empty:
@@ -36,7 +72,7 @@ def get_cat_options(col_prefix):
     return sorted([c.replace(col_prefix+'_', '') for c in train_df.columns if c.startswith(col_prefix+'_')])
 
 # --- Predict Section ---
-if section == 'Predict':
+if section == '🔮 Predict':
     st.title('🏡 Predict House Sale Price')
     if model_err:
         st.error(f"Model loading error: {model_err}")
@@ -110,8 +146,10 @@ if section == 'Predict':
             except Exception as e:
                 st.error(f'Prediction error: {e}')
 
+    st.markdown(footer_html, unsafe_allow_html=True)
+
 # --- Batch Predict Section ---
-elif section == 'Batch Predict':
+elif section == '📦 Batch Predict':
     st.title('📦 Batch House Price Prediction')
     if model_err:
         st.error(f"Model loading error: {model_err}")
@@ -236,66 +274,114 @@ elif section == 'Batch Predict':
                 except Exception:
                     pass
 
+    st.markdown(footer_html, unsafe_allow_html=True)
+
 # --- EDA Section ---
-elif section == 'EDA':
+elif section == '📊 EDA':
     st.title('📊 Exploratory Data Analysis')
     if train_err:
         st.error(f"Data loading error: {train_err}")
     elif train_df.empty:
         st.warning('Training data not available for EDA.')
     else:
-        st.markdown('### SalePrice Distribution')
-        fig1, ax1 = plt.subplots()
-        sns.histplot(train_df['SalePrice'], bins=30, kde=True, ax=ax1, color='lightgreen')
-        ax1.set_xlabel('SalePrice')
-        st.pyplot(fig1)
-        st.markdown('### Feature Importance')
-        if model is not None:
-            if hasattr(model, 'coef_'):
-                importances = pd.Series(model.coef_, index=model_columns)
-                top_importances = importances.abs().sort_values(ascending=False).head(10)
-                fig2, ax2 = plt.subplots()
-                top_importances.plot(kind='barh', ax=ax2)
-                ax2.set_title('Top 10 Feature Importances (abs)')
-                st.pyplot(fig2)
-            elif hasattr(model, 'feature_importances_'):
-                importances = pd.Series(model.feature_importances_, index=model_columns)
-                top_importances = importances.abs().sort_values(ascending=False).head(10)
-                fig2, ax2 = plt.subplots()
-                top_importances.plot(kind='barh', ax=ax2)
-                ax2.set_title('Top 10 Feature Importances')
-                st.pyplot(fig2)
+        with st.expander('SalePrice Distribution', expanded=True):
+            fig1, ax1 = plt.subplots()
+            sns.histplot(train_df['SalePrice'], bins=30, kde=True, ax=ax1, color='lightgreen')
+            ax1.set_xlabel('SalePrice')
+            st.pyplot(fig1)
+        # Feature selection for scatterplot
+        with st.expander('Feature vs. SalePrice (Scatterplot)', expanded=False):
+            num_cols = train_df.select_dtypes(include=np.number).columns.tolist()
+            feature = st.selectbox('Select a feature to plot against SalePrice:', [col for col in num_cols if col != 'SalePrice'])
+            fig2, ax2 = plt.subplots()
+            sns.scatterplot(x=train_df[feature], y=train_df['SalePrice'], ax=ax2)
+            ax2.set_xlabel(feature)
+            ax2.set_ylabel('SalePrice')
+            st.pyplot(fig2)
+        # Categorical boxplot
+        with st.expander('Categorical Feature Analysis (Boxplot)', expanded=False):
+            cat_cols = train_df.select_dtypes(include='object').columns.tolist()
+            if cat_cols:
+                cat_feature = st.selectbox('Select a categorical feature:', cat_cols)
+                fig3, ax3 = plt.subplots()
+                sns.boxplot(x=train_df[cat_feature], y=train_df['SalePrice'], ax=ax3)
+                ax3.set_xlabel(cat_feature)
+                ax3.set_ylabel('SalePrice')
+                plt.setp(ax3.get_xticklabels(), rotation=45, ha='right')
+                st.pyplot(fig3)
             else:
-                st.info('Feature importance not available for this model.')
-        st.markdown('### Correlation Heatmap')
-        corr = train_df.corr()
-        fig3, ax3 = plt.subplots(figsize=(8, 6))
-        sns.heatmap(corr[['SalePrice']].sort_values(by='SalePrice', ascending=False).head(11), annot=True, cmap='coolwarm', ax=ax3)
-        st.pyplot(fig3)
+                st.info('No categorical features available.')
+        # Correlation heatmap
+        with st.expander('Correlation Heatmap', expanded=False):
+            corr_cols = st.multiselect('Select features for correlation heatmap:', num_cols, default=num_cols[:10])
+            if corr_cols:
+                corr = train_df[corr_cols + ['SalePrice']].corr()
+                fig4, ax4 = plt.subplots(figsize=(8, 6))
+                sns.heatmap(corr, annot=True, cmap='coolwarm', ax=ax4)
+                st.pyplot(fig4)
+            else:
+                st.info('Select at least one feature to display the heatmap.')
+        # Missing values
+        with st.expander('Missing Values', expanded=False):
+            missing = train_df.isnull().sum()
+            missing = missing[missing > 0]
+            if not missing.empty:
+                fig5, ax5 = plt.subplots()
+                missing.sort_values().plot(kind='barh', ax=ax5)
+                ax5.set_title('Missing Values per Feature')
+                st.pyplot(fig5)
+            else:
+                st.info('No missing values in the training data.')
+        # Summary statistics
+        with st.expander('Summary Statistics', expanded=False):
+            st.dataframe(train_df.describe().T)
+
+    st.markdown(footer_html, unsafe_allow_html=True)
 
 # --- About Section ---
-elif section == 'About':
+elif section == 'ℹ️ About':
     st.title('ℹ️ About This Project')
     st.markdown('''
-    ## Welcome to the House Price Prediction App!
-    
-    This app empowers you to:
-    - Instantly predict house prices using real, historical data and advanced machine learning.
-    - Upload your own CSV files for batch predictions—get results for many houses at once.
-    - Explore the data and model insights with interactive EDA and feature importance tools.
-    
-    **How to use:**
-    - Use the **Predict** tab for single house price prediction.
-    - Use **Batch Predict** to upload a CSV and get predictions for many houses.
-    - Explore **EDA** for data insights and model interpretability.
-    
-    ---
-    
-    **Note from the Developer:**
-    > Thank you for using this app! If you have feedback, suggestions, or want to connect, feel free to reach out on [LinkedIn](https://www.linkedin.com/in/shreya-singh-561a591a5/) – Shreya Singh
-    
-    ---
+    <div style="background: #e3eafc; color: #1a237e; border-radius: 10px; padding: 1.2rem 1.5rem; margin-bottom: 1rem;">
+        <b>🏠 House Price Prediction App</b><br>
+        Predict house prices instantly using real data and advanced machine learning. Explore, analyze, and download results—all in one place.
+    </div>
+    ''', unsafe_allow_html=True)
+
+    st.markdown('### 🚀 Key Features')
+    st.markdown('''
+    - 🔮 **Single Prediction:** Enter house details and get an instant price prediction.
+    - 📦 **Batch Prediction:** Upload a CSV to predict prices for many houses at once.
+    - 📊 **EDA:** Explore data distributions, feature importance, and more.
+    - ⬇️ **Download:** Export your results for further analysis.
     ''')
 
-st.markdown('---')
-st.caption('For best results, use realistic values for your house features.')
+    st.markdown('### 🛠️ Tech Stack')
+    st.markdown('''
+    - Python, pandas, numpy, scikit-learn, xgboost
+    - Streamlit for the interactive web app
+    - matplotlib & seaborn for visualizations
+    ''')
+
+    st.markdown('### 📋 How to Use')
+    st.markdown('''
+    1. **Predict:** Use the sidebar to enter house features and get a price.
+    2. **Batch Predict:** Upload a CSV file with house data for bulk predictions.
+    3. **EDA:** Explore the data and model insights.
+    4. **Download:** Save your results as CSV or Excel.
+    ''')
+
+    st.markdown('### 💡 Tips for Best Results')
+    st.markdown('''
+    - Use realistic values for all features.
+    - For batch prediction, ensure your CSV columns match the model features.
+    - Explore EDA to understand what drives house prices!
+    ''')
+
+    with st.expander("👩‍💻 Note from the Developer"):
+        st.markdown('''
+        Thank you for using this app!  
+        If you have feedback, suggestions, or want to connect, reach out on [LinkedIn](https://www.linkedin.com/in/shreya-singh-561a591a5/) – Shreya Singh
+        ''')
+
+    st.markdown(footer_html, unsafe_allow_html=True)
