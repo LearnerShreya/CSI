@@ -10,14 +10,33 @@ Welcome! This project helps you predict house prices using real data and a smart
 ## What’s Inside
 
 **Folders and Files:**
-- **data/** – All the data files: the original data, cleaned data, and processed data ready for modeling.
-- **models/** – The trained model and a file listing the features it uses.
-- **notebooks/** – Step-by-step Jupyter notebooks for data cleaning, feature engineering, and making predictions.
-- **output/** – The results, including final predictions and a summary of what’s in this folder.
-- **src/app.py** – The main Streamlit app. This is what you run to use the web interface.
-- **requirements.txt** – A list of all the Python libraries you need.
-- **README.md** – This file! Explains the project and how to use it.
-- **approach.md** – A detailed, technical explanation of how everything works.
+
+project-root/
+│
+├── data/                         # All the data files: original, cleaned, and processed for modeling
+│   ├── original_data.csv         # Raw dataset before any cleaning
+│   ├── cleaned_data.csv          # Cleaned dataset after preprocessing
+│   └── processed_data.csv        # Final processed dataset ready for model training
+│
+├── models/                       # Trained ML model and related feature list
+│   ├── model_house_price_prediction.pkl  # Saved trained model
+│   └── model_columns.pkl                 # List of features used by the model
+│
+├── notebooks/                    # Step-by-step Jupyter notebooks
+│   ├── 01_data_cleaning.ipynb    # Notebook for data cleaning
+│   ├── 02_feature_engineering.ipynb  # Notebook for feature engineering
+│   └── 03_model_prediction.ipynb     # Notebook for prediction and evaluation
+│
+├── output/                       # Results of the project
+│   ├── final_predictions.csv     # Final model predictions on test data
+│   └── summary.txt               # Summary or notes about the results
+│
+├── src/                          # Source code
+│   └── app.py                    # Main Streamlit app – run this to use the web interface
+│
+├── requirements.txt              # List of required Python libraries
+├── README.md                     # Project overview and usage instructions
+└── approach.md                   # Detailed explanation of methods and approach
 
 ---
 
