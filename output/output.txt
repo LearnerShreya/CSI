@@ -1,0 +1,27 @@
+Output Folder
+
+This folder has the main results from the House Price Prediction project. Here’s what each file is for and what you can do with it:
+
+From the Notebooks:
+
+1. 01_EDA_and_Data_Cleaning.ipynb
+   - cleaned_train.csv: This is the training data after we cleaned it up and fixed missing values and outliers. It’s ready for the next steps.
+
+2. 02_Feature_Engineering_and_Selection.ipynb
+   - processed_train.csv: This is the training data after we added new features and did some extra processing. It’s what the model learned from.
+   - model_house_price_prediction.pkl: This is the trained machine learning model. The app uses this to make predictions.
+   - model_columns.pkl: This file lists all the features the model expects. It helps make sure the data is in the right format for predictions.
+
+3. 03_Final_Pipeline_and_Export.ipynb
+   - final_predictions.csv: These are the predicted house prices for the test data. You’ll see the house Id and the price the model thinks it should sell for.
+
+About the Streamlit App (src/app.py):
+
+- You can enter details about a house and get a price prediction right away. The app shows your result and where it fits compared to other houses.
+- You can upload a CSV file with lots of houses and get predictions for all of them at once. You can also download the results.
+- There’s a section to explore the data and see which features matter most.
+- The About page explains what the app does and how to use it.
+
+Note:
+- All these files are made automatically when you run the notebooks or use the app.
+- For more info on how everything works, check out the README.md or approach.md files in the main folder.
