@@ -21,6 +21,33 @@ Welcome! This project helps you predict house prices using real data and a smart
 
 ---
 
+## Screenshots
+
+### Predict
+![Predict 1](assets/image.png)
+![Predict 2](assets/image-1.png)
+![Predict 3](assets/image-2.png)
+![Predict 4](assets/image-3.png)
+
+### Batch Predict
+![Batch 1](assets/image-4.png)
+![Batch 2](assets/image-5.png)
+![Batch 3](assets/image-6.png)
+![Batch 4](assets/image-7.png)
+
+### EDA
+![EDA 1](assets/image-8.png)
+![EDA 2](assets/image-9.png)
+![EDA 3](assets/image-10.png)
+
+### About
+![About 1](assets/image-11.png)
+![About 2](assets/image-12.png)
+
+> And that's just a glimpse! The app is packed with even more powerful features and interactive tools — uncover them all by exploring the app yourself and see how much more it can do beyond these screenshots.
+
+---
+
 ## What This Project Does
 
 - **Cleans and explores the data** so the model can learn from it.
@@ -88,12 +115,6 @@ Welcome! This project helps you predict house prices using real data and a smart
 ## Want to Know How It Works?
 
 Check out `approach.md` for a step-by-step explanation of the data science and machine learning process behind the scenes.
-
----
-
-## Screenshots
-
-_Coming soon......!_
 
 ---
 
