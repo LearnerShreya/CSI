@@ -10,7 +10,8 @@ Welcome! This project helps you predict house prices using real data and a smart
 ## Project Structure
 
 ```
-project-root/
+
+CSI_Project_House-Price-Prediction/
 │
 ├── assets/                      # App screenshots and images (not listed here)
 │
