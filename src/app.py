@@ -11,8 +11,8 @@ st.set_page_config(page_title="House Price Prediction", page_icon="🏠", layout
 @st.cache_data
 def load_model():
     try:
-        model = joblib.load('../models/model_house_price_prediction.pkl')
-        model_columns = joblib.load('../models/model_columns.pkl')
+        model = joblib.load('models/model_house_price_prediction.pkl')
+        model_columns = joblib.load('models/model_columns.pkl')
         return model, model_columns, None
     except Exception as e:
         return None, None, str(e)
@@ -20,7 +20,7 @@ def load_model():
 @st.cache_data
 def load_train_data():
     try:
-        df = pd.read_csv('../data/processed_train.csv')
+        df = pd.read_csv('data/processed_train.csv')
         return df, None
     except Exception as e:
         return pd.DataFrame(), str(e)
