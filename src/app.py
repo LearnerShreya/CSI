@@ -54,7 +54,7 @@ section = st.sidebar.radio(
     ['🔮 Predict', '📦 Batch Predict', '📊 EDA', 'ℹ️ About'],
     key='sidebar-radio',
 )
-st.sidebar.markdown('<hr style="margin: 0.3rem 0 0.2rem 0;">', unsafe_allow_html=True)
+# st.sidebar.markdown('<hr style="margin: 0.3rem 0 0.2rem 0;">', unsafe_allow_html=True)
 st.sidebar.markdown(
     '''
     <hr style="border: none; border-top: 1px solid #bbb; margin: 1.2rem 0 0.5rem 0;" />
