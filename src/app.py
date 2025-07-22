@@ -5,6 +5,8 @@ import joblib
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+st.set_page_config(page_title="House Price Prediction", page_icon="🏠", layout="wide")
+
 # --- Caching and Model Loading ----
 @st.cache_data
 def load_model():
