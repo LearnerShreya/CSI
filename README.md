@@ -7,37 +7,39 @@ Welcome! This project helps you predict house prices using real data and a smart
 ## Live Demo: [price-my-home](https://price-my-home.streamlit.app/)
 ---
 
-## What’s Inside
-
-**Folders and Files:**
+## Project Structure
 
 ```
 project-root/
 │
-├── data/                         # All the data files: original, cleaned, and processed for modeling
-│   ├── original_data.csv         # Raw dataset before any cleaning
-│   ├── cleaned_data.csv          # Cleaned dataset after preprocessing
-│   └── processed_data.csv        # Final processed dataset ready for model training
+├── assets/                      # App screenshots and images (not listed here)
 │
-├── models/                       # Trained ML model and related feature list
-│   ├── model_house_price_prediction.pkl  # Saved trained model
-│   └── model_columns.pkl                 # List of features used by the model
+├── data/                        # All the data files: original, cleaned, and processed for modeling
+│   ├── cleaned_train.csv         # Cleaned dataset after preprocessing
+│   ├── data_description.txt      # Description of dataset features
+│   ├── processed_train.csv       # Final processed dataset ready for model training
+│   ├── test.csv                  # Test dataset
+│   └── train.csv                 # Raw dataset before any cleaning
 │
-├── notebooks/                    # Step-by-step Jupyter notebooks
-│   ├── 01_data_cleaning.ipynb    # Notebook for data cleaning
-│   ├── 02_feature_engineering.ipynb  # Notebook for feature engineering
-│   └── 03_model_prediction.ipynb     # Notebook for prediction and evaluation
+├── models/                      # Trained ML model and related feature list
+│   ├── model_columns.pkl         # List of features used by the model
+│   └── model_house_price_prediction.pkl  # Saved trained model
 │
-├── output/                       # Results of the project
+├── notebooks/                   # Step-by-step Jupyter notebooks
+│   ├── 01_EDA_and_Data_Cleaning.ipynb    # Notebook for EDA and data cleaning
+│   ├── 02_Feature_Engineering_and_Selection.ipynb  # Notebook for feature engineering
+│   └── 03_Final_Pipeline_and_Export.ipynb          # Notebook for prediction and export
+│
+├── output/                      # Results of the project
 │   ├── final_predictions.csv     # Final model predictions on test data
-│   └── summary.txt               # Summary or notes about the results
+│   └── output.txt                # Summary or notes about the results
 │
-├── src/                          # Source code
-│   └── app.py                    # Main Streamlit app – run this to use the web interface
+├── src/                         # Source code
+│   └── app.py                   # Main Streamlit app – run this to use the web interface
 │
-├── requirements.txt              # List of required Python libraries
-├── README.md                     # Project overview and usage instructions
-└── approach.md                   # Detailed explanation of methods and approach
+├── requirements.txt             # List of required Python libraries
+├── README.md                    # Project overview and usage instructions
+└── approach.md                  # Detailed explanation of methods and approach
 ```
 
 ---
